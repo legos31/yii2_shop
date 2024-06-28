@@ -8,6 +8,14 @@ return [
     'components' => [
         'cache' => [
             'class' => \yii\caching\FileCache::class,
+//            'class' => \yii\caching\MemCache::class,
+//            'useMemcached' => true,
+//            'servers' => [
+//                [
+//                    'host' => 'memcached',
+//                    'port' => 11211,
+//                ],
+//            ],
         ],
     ],
 ];

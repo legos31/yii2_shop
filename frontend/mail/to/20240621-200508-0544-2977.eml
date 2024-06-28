@@ -1,0 +1,49 @@
+From: My Application robot <support@example.com>
+To: remen7011@mail.ru
+Subject: Account registration at My Application
+MIME-Version: 1.0
+Date: Fri, 21 Jun 2024 20:05:08 +0000
+Message-ID: <3db3bbaf6e837167564ff8bcda22adc1@example.com>
+Content-Type: multipart/alternative; boundary=CbMVkiET
+
+--CbMVkiET
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Hello legos2,
+
+Follow the link below to verify your email:
+
+http://=
+shop.loc/site/verify-email?token=3DNLNW9Rs2Jo_8oFLEhPv1NXPH-3Fat7HX_1719000=
+307
+--CbMVkiET
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org=
+/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns=3D"http://www.w3.org/1999/=
+xhtml">
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/ht=
+ml; charset=3DUTF-8" />
+    <title></title>
+    </head>
+<body>
+    =
+    <div class=3D"verify-email">
+    <p>Hello legos2,</p>
+
+    <p>Fol=
+low the link below to verify your email:</p>
+
+    <p><a href=3D"http://=
+shop.loc/site/verify-email?token=3DNLNW9Rs2Jo_8oFLEhPv1NXPH-3Fat7HX_1719000=
+307">http://shop.loc/site/verify-email?token=3DNLNW9Rs2Jo_8oFLEhPv1NXPH-3Fa=
+t7HX_1719000307</a></p>
+</div>
+    </body>
+</html>
+
+--CbMVkiET--

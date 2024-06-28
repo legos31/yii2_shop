@@ -17,9 +17,9 @@ deploying the application in different environments.
 
 Documentation is at [docs/guide/README.md](docs/guide/README.md).
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![build](https://github.com/yiisoft/yii2-app-advanced/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-app-advanced/actions?query=workflow%3Abuild)
+php init
+
+php -S localhost:8000
 
 DIRECTORY STRUCTURE
 -------------------
@@ -58,3 +58,40 @@ frontend
 vendor/                  contains dependent 3rd-party packages
 environments/            contains environment-based overrides
 ```
+----------------------------------------------------------------
+
+Notes
+
+Bower.io - репозиторий для пакетов js и css [npm install -g bower]
+******************************************************************
+Dependency Manager for Composer. Без установки NPM or Bower. Установка пакетов из Bower через composer [composer global require "fxp/composer-asset-plugin:~1.3"]
+Использование: composer require bower-asset/jquery
+******************************************************************
+https://asset-packagist.org замена Bower. Composer + Bower + NPM = friends forever!
+Для использования добавляем:
+"repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }]
+Будет обрабатывать:
+"require": {
+    "bower-asset/bootstrap": "^3.3",
+    "npm-asset/jquery": "^2.2"
+}
+******************************************************************
+Add frontendUrlManager
+Add backendUrlManager
+******************************************************************
+'components' => [
+        'cache' => [
+            'class' => \yii\caching\FileCache::class,
+            'cachePath' => '@common/runtime/cache'
+        ],
+    ],
+Один кеш для админки и фронта
+*******************************************************************
+что при входе на http://front.loc заходить и на http://admin.front.loc
+cookieValidationKey одикаковый в main-local.php backend & frontend
+одинаковое имя сессии и куки
+*******************************************************************
