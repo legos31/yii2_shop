@@ -1,6 +1,6 @@
 <?php
 
-namespace shop\services;
+namespace shop\services\auth;
 
 use shop\entities\User;
 use shop\forms\auth\LoginForm;

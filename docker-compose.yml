@@ -54,7 +54,6 @@ services:
 
   memcached:
     image: memcached
-    container_name: memcached
     ports:
       - "11211:11211"
 

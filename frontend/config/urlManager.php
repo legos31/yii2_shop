@@ -9,6 +9,12 @@ return [
     'showScriptName' => false,
     'rules' => [
         '/'     => 'site/index',
-        '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
+        '<_a:login|logout>'     => 'auth/auth/<_a>',
+        'signup' => 'auth/signup/signup',
+        'signup/<_a:[\w-]+>' => 'auth/signup/<_a>',
+        'request-password-reset' => 'auth/reset/request-password-reset',
+        'reset-password' => 'auth/reset/reset-password/',
+        'resend-verification-email' => 'auth/resend/resend-verification-email',
+        'verify-email' => 'auth/resend/verify-email',
     ],
 ];

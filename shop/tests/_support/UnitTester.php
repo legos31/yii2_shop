@@ -1,6 +1,6 @@
 <?php
 
-namespace common\tests;
+namespace shop\tests;
 
 /**
  * Inherited Methods

@@ -1,9 +1,10 @@
 <?php
 
-namespace common\repositories;
+namespace shop\repositories;
 
 use shop\entities\User;
 use yii\web\NotFoundHttpException;
+use Yii;
 
 class UserRepository
 {
@@ -23,7 +24,7 @@ class UserRepository
 
     public function getByPasswordResetToken($token): User|null
     {
-        if (!self::isPasswordResetTokenValid($token)) {
+        if (!$this->isPasswordResetTokenValid($token)) {
             return null;
         }
         return $this->getBy([
@@ -42,7 +43,7 @@ class UserRepository
         return $user;
     }
 
-    public static function isPasswordResetTokenValid($token)
+    public function isPasswordResetTokenValid($token)
     {
         if (empty($token)) {
             return false;
@@ -51,6 +52,14 @@ class UserRepository
         $timestamp = (int) substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
+    }
+
+    public function findByVerificationToken($token): User
+    {
+        return User::findOne([
+            'verification_token' => $token,
+            'status' => User::STATUS_INACTIVE
+        ]);
     }
 
 }

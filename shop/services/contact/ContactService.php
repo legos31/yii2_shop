@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\services\contact;
+namespace shop\services\contact;
 
 use shop\forms\ContactForm;
 use yii\mail\MailerInterface;

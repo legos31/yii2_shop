@@ -1,0 +1,1 @@
+{"version":1,"defects":{"frontend\\tests\\unit\\entities\\SignupTest::testSuccess":4,"frontend\\tests\\unit\\forms\\ContactFormTest::testSendEmail":4},"times":{"frontend\\tests\\unit\\entities\\SignupTest::testSuccess":0.201,"frontend\\tests\\unit\\forms\\ContactFormTest::testSendEmail":0.01}}

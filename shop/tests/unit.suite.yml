@@ -1,4 +1,4 @@
-suite_namespace: common\tests\unit
+suite_namespace: shop\tests\unit
 actor: UnitTester
 bootstrap: false
 modules:
