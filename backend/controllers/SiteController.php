@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use shop\forms\auth\LoginForm;
+use shop\services\auth\AuthService;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -13,6 +14,14 @@ use yii\web\Response;
  */
 class SiteController extends Controller
 {
+    private AuthService $authService;
+
+    public function __construct($id, $module, AuthService $authService, $config = [])
+    {
+        parent::__construct($id, $module, $config);
+        $this->authService = $authService;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -64,15 +73,17 @@ class SiteController extends Controller
 
         $this->layout = 'blank';
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        $form = new LoginForm();
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+            $user = $this->authService->auth($form);
+            Yii::$app->user->login($user, $form->rememberMe ? 3600 * 24 * 30 : 0);
             return $this->goBack();
         }
 
-        $model->password = '';
+        $form->password = '';
 
         return $this->render('login', [
-            'model' => $model,
+            'model' => $form,
         ]);
     }
 

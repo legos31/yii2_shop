@@ -23,7 +23,6 @@ class SignupController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['signup'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
