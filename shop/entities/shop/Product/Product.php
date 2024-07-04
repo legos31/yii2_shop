@@ -7,6 +7,7 @@ use shop\entities\behaviors\MetaBehavior;
 use shop\entities\Meta;
 use shop\entities\shop\Brand;
 use shop\entities\shop\Category;
+use shop\entities\Shop\Product\queries\ProductQuery;
 use shop\entities\shop\Tag;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -563,28 +564,28 @@ class Product extends ActiveRecord
         ];
     }
 
-//    public function beforeDelete(): bool
-//    {
-//        if (parent::beforeDelete()) {
-//            foreach ($this->photos as $photo) {
-//                $photo->delete();
-//            }
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public function afterSave($insert, $changedAttributes): void
-//    {
-//        $related = $this->getRelatedRecords();
-//        parent::afterSave($insert, $changedAttributes);
-//        if (array_key_exists('mainPhoto', $related)) {
-//            $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
-//        }
-//    }
+    public function beforeDelete(): bool
+    {
+        if (parent::beforeDelete()) {
+            foreach ($this->photos as $photo) {
+                $photo->delete();
+            }
+            return true;
+        }
+        return false;
+    }
 
-//    public static function find(): ProductQuery
-//    {
-//        return new ProductQuery(static::class);
-//    }
+    public function afterSave($insert, $changedAttributes): void
+    {
+        $related = $this->getRelatedRecords();
+        parent::afterSave($insert, $changedAttributes);
+        if (array_key_exists('mainPhoto', $related)) {
+            $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
+        }
+    }
+
+    public static function find(): ProductQuery
+    {
+        return new ProductQuery(static::class);
+    }
 }

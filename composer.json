@@ -22,7 +22,8 @@
         "yiisoft/yii2-authclient": "^2.2",
         "yiisoft/yii2-jui": "^2.0",
         "sadi01/yii2-daterangepicker": "*",
-        "paulzi/yii2-nested-sets": "^1.1"
+        "paulzi/yii2-nested-sets": "^1.1",
+        "mihaildev/yii2-ckeditor": "*"
 
     },
     "require-dev": {
