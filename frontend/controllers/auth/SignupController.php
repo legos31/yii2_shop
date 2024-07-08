@@ -10,6 +10,7 @@ use yii\web\Controller;
 
 class SignupController extends Controller
 {
+    public $layout = 'cabinet';
     private SignupServices $signupServices;
 
     public function __construct($id, $module, SignupServices $signupServices, $config = [])

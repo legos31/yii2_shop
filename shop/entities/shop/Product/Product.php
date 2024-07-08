@@ -7,7 +7,7 @@ use shop\entities\behaviors\MetaBehavior;
 use shop\entities\Meta;
 use shop\entities\shop\Brand;
 use shop\entities\shop\Category;
-use shop\entities\Shop\Product\queries\ProductQuery;
+use shop\entities\Shop\queries\ProductQuery;
 use shop\entities\shop\Tag;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -30,10 +30,10 @@ class Product extends ActiveRecord
         $product->code = $code;
         $product->name = $name;
         $product->description = $description;
-        //$product->weight = $weight;
-        //$product->quantity = $quantity;
+        $product->weight = $weight;
+        $product->quantity = $quantity;
         $product->meta = $meta;
-        //$product->status = self::STATUS_DRAFT;
+        $product->status = self::STATUS_DRAFT;
         $product->created_at = time();
         return $product;
     }
@@ -103,40 +103,40 @@ class Product extends ActiveRecord
     {
         return !$this->modifications;
     }
-//
-//    public function canBeCheckout($modificationId, $quantity): bool
-//    {
-//        if ($modificationId) {
-//            return $quantity <= $this->getModification($modificationId)->quantity;
-//        }
-//        return $quantity <= $this->quantity;
-//    }
-//
-//    public function checkout($modificationId, $quantity): void
-//    {
-//        if ($modificationId) {
-//            $modifications = $this->modifications;
-//            foreach ($modifications as $i => $modification) {
-//                if ($modification->isIdEqualTo($modificationId)) {
-//                    $modification->checkout($quantity);
-//                    $this->updateModifications($modifications);
-//                    return;
-//                }
-//            }
-//        }
-//        if ($quantity > $this->quantity) {
-//            throw new \DomainException('Only ' . $this->quantity . ' items are available.');
-//        }
-//        $this->setQuantity($this->quantity - 1);
-//    }
-//
-//    private function setQuantity($quantity): void
-//    {
-//        if ($this->quantity == 0 && $quantity > 0) {
-//            $this->recordEvent(new ProductAppearedInStock($this));
-//        }
-//        $this->quantity = $quantity;
-//    }
+
+    public function canBeCheckout($modificationId, $quantity): bool
+    {
+        if ($modificationId) {
+            return $quantity <= $this->getModification($modificationId)->quantity;
+        }
+        return $quantity <= $this->quantity;
+    }
+
+    public function checkout($modificationId, $quantity): void
+    {
+        if ($modificationId) {
+            $modifications = $this->modifications;
+            foreach ($modifications as $i => $modification) {
+                if ($modification->isIdEqualTo($modificationId)) {
+                    $modification->checkout($quantity);
+                    $this->updateModifications($modifications);
+                    return;
+                }
+            }
+        }
+        if ($quantity > $this->quantity) {
+            throw new \DomainException('Only ' . $this->quantity . ' items are available.');
+        }
+        $this->setQuantity($this->quantity - 1);
+    }
+
+    private function setQuantity($quantity): void
+    {
+        if ($this->quantity == 0 && $quantity > 0) {
+            $this->recordEvent(new ProductAppearedInStock($this));
+        }
+        $this->quantity = $quantity;
+    }
 
     public function getSeoTile(): string
     {
@@ -489,10 +489,10 @@ class Product extends ActiveRecord
         return $this->hasMany(Category::class, ['id' => 'category_id'])->via('categoryAssignments');
     }
 
-//    public function getTagAssignments(): ActiveQuery
-//    {
-//        return $this->hasMany(TagAssignment::class, ['product_id' => 'id']);
-//    }
+    public function getTagAssignments(): ActiveQuery
+    {
+        return $this->hasMany(TagAssignment::class, ['product_id' => 'id']);
+    }
 
     public function getTags(): ActiveQuery
     {
@@ -534,10 +534,10 @@ class Product extends ActiveRecord
         return $this->hasMany(Review::class, ['product_id' => 'id']);
     }
 
-//    public function getWishlistItems(): ActiveQuery
-//    {
-//        return $this->hasMany(WishlistItem::class, ['product_id' => 'id']);
-//    }
+    public function getWishlistItems(): ActiveQuery
+    {
+        return $this->hasMany(WishlistItem::class, ['product_id' => 'id']);
+    }
 
     ##########################
 

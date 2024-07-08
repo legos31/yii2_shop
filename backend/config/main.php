@@ -12,6 +12,10 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
+    'aliases' => [
+        '@staticRoot' => $params['staticPath'],
+        '@static'   => $params['staticHostInfo'],
+    ],
     'as access' => [
         'class' => 'yii\filters\AccessControl',
         'except' => ['site/login', 'site/error'],

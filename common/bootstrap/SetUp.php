@@ -7,6 +7,8 @@ use shop\services\contact\ContactService;
 use Yii;
 use yii\base\BootstrapInterface;
 use yii\mail\MailerInterface;
+use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\ClientBuilder;
 
 class SetUp implements BootstrapInterface
 {
@@ -25,5 +27,9 @@ class SetUp implements BootstrapInterface
             $app->params['supportEmail'],
             $app->params['adminEmail'],
         ]);
+
+        Yii::$container->setSingleton(Client::class, function () {
+            return ClientBuilder::create()->build();
+        });
     }
 }

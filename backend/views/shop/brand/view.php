@@ -9,6 +9,7 @@ use yii\widgets\DetailView;
 $this->title = $brand->name;
 $this->params['breadcrumbs'][] = ['label' => 'Brands', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="user-view">
 

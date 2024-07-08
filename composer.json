@@ -23,8 +23,11 @@
         "yiisoft/yii2-jui": "^2.0",
         "sadi01/yii2-daterangepicker": "*",
         "paulzi/yii2-nested-sets": "^1.1",
-        "mihaildev/yii2-ckeditor": "*"
-
+        "mihaildev/yii2-ckeditor": "*",
+        "yii-dream-team/yii2-upload-behavior": "*",
+        "bower-asset/font-awesome": "^6.5",
+        "bower-asset/owl.carousel": "^2.3",
+        "elasticsearch/elasticsearch": "^8.14"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -48,7 +51,8 @@
     },
     "config": {
         "allow-plugins": {
-            "yiisoft/yii2-composer" : true
+            "yiisoft/yii2-composer": true,
+            "php-http/discovery": true
         },
         "process-timeout": 1800,
         "fxp-asset": {

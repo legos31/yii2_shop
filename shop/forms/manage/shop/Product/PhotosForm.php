@@ -10,7 +10,7 @@ class PhotosForm extends Model
     /**
      * @var UploadedFile[]
      */
-    public array $files;
+    public $files;
 
     public function rules(): array
     {

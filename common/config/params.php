@@ -10,4 +10,6 @@ return [
     'cookieDomain' => '.shop.loc',
     'frontendHostInfo' => 'http://shop.loc',
     'backendHostInfo' => 'http://admin.shop.loc',
+    'staticHostInfo' => 'http://localhost:8080',
+    'staticPath' => dirname(__DIR__, 2) . '/static',
 ];

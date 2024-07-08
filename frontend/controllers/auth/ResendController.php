@@ -11,6 +11,7 @@ use yii\web\Controller;
 
 class ResendController extends Controller
 {
+    public $layout = 'cabinet';
     private PasswordResetService $passwordResetService;
 
     public function __construct($id, $module, PasswordResetService $passwordResetService, $config = [])

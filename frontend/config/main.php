@@ -11,6 +11,10 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log', 'common\bootstrap\SetUp'],
     'controllerNamespace' => 'frontend\controllers',
+    'aliases' => [
+        '@staticRoot' => $params['staticPath'],
+        '@static'   => $params['staticHostInfo'],
+    ],
     'components' => [
         'authClientCollection' => [
             'class' => 'yii\authclient\Collection',
