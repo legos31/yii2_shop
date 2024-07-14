@@ -18,6 +18,10 @@ return [
         'verify-email' => 'auth/resend/verify-email',
         'contact' => 'site/contact',
 
+        'catalog' => 'shop/catalog/index',
+        ['class' => 'frontend\urls\CategoryUrlRule'],
+        'catalog/<id:\d+>' => 'shop/catalog/product',
+
         'cabinet' => 'cabinet/default/index',
         'cabinet/<_c:[\w\-]+>' => 'cabinet/<_c>/index',
         'cabinet/<_c:[\w\-]+>/<id:\d+>' => 'cabinet/<_c>/view',

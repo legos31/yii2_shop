@@ -2,6 +2,7 @@
 
 namespace shop\entities\shop\Product;
 
+use shop\entities\shop\Category;
 use yii\db\ActiveRecord;
 
 class CategoryAssignment extends ActiveRecord
@@ -21,5 +22,10 @@ class CategoryAssignment extends ActiveRecord
     public static function tableName(): string
     {
         return '{{%shop_category_assignments}}';
+    }
+
+    public function findCategory($id): Category
+    {
+        return Category::findOne($id);
     }
 }

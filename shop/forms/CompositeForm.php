@@ -19,6 +19,7 @@ abstract class CompositeForm extends Model
         $success = parent::load($data, $formName);
 
         foreach ($this->forms as $name => $form) {
+
             if (is_array($form)) {
                 $success = Model::loadMultiple($form, $data, $formName === null ? null : $name) && $success;
             } else {

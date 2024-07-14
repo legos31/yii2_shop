@@ -3,6 +3,7 @@
 namespace shop\entities;
 
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
+use shop\entities\WishlistItem;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
@@ -226,5 +227,35 @@ class User extends ActiveRecord implements IdentityInterface
     public function getNetworks(): ActiveQuery
     {
         return $this->hasMany(Network::class, ['user_id' => 'id']);
+    }
+
+    public function addToWishList($productId): void
+    {
+        $items = $this->wishlistItems;
+        foreach ($items as $item) {
+            if ($item->isForProduct($productId)) {
+                throw new \DomainException('Item is already added.');
+            }
+        }
+        $items[] = WishlistItem::create($productId);
+        $this->wishlistItems = $items;
+    }
+
+    public function removeFromWishList($productId): void
+    {
+        $items = $this->wishlistItems;
+        foreach ($items as $i => $item) {
+            if ($item->isForProduct($productId)) {
+                unset($items[$i]);
+                $this->wishlistItems = $items;
+                return;
+            }
+        }
+        throw new \DomainException('Item is not found.');
+    }
+
+    public function getWishlistItems(): ActiveQuery
+    {
+        return $this->hasMany(WishlistItem::class, ['user_id' => 'id']);
     }
 }

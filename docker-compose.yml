@@ -66,20 +66,40 @@ services:
     ports:
       - "8080:80"    # Прокидываем порт 8080 контейнера на порт 80 хост-системы
 
-#  elasticsearch:
-#    container_name: elasticsearch
-#    image: elasticsearch:7.17.22
-#    environment:
-#      - node.name=elasticsearch
-#      - discovery.type=single-node
+#  opensearch:
+#    image: opensearchproject/opensearch
 #    ports:
 #      - "9200:9200"
-#      - "9300:9300"
-#    volumes:
-#      - ./database/elasticsearch:/usr/share/elasticsearch/data
+#      - "9600:9600"
+#    environment:
+#        - discovery.type=single-node
+#        - node.name=opensearch
+#        - OPENSEARCH_INITIAL_ADMIN_PASSWORD=Qaz308001
 
-  #opensearch:
-    #image: opensearchproject/opensearch
+#  sphinx:
+#    build: database/sphinx
+#    container_name: sphinx
+#    volumes:
+#      - ./database/sphinx/sphinx.conf:/etc/sphinxsearch/sphinx.conf
+#      - ./database/sphinx:/var/lib/sphinxsearch/data
+#    ports:
+#      - "9312:9312"
+#    depends_on:
+#      - mysql
+#    command: indexer --config /etc/sphinxsearch/sphinx.conf --all
+
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: elasticsearch:7.17.22
+    environment:
+      - node.name=elasticsearch
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - ./database/elasticsearch:/usr/share/elasticsearch/data
 
   #pgsql:
   #  image: postgres:9.5

@@ -72,5 +72,6 @@ use yii\widgets\LinkPager;
             'pagination' => $dataProvider->getPagination(),
         ]) ?>
     </div>
+
     <div class="col-sm-6 text-right">Showing <?= $dataProvider->getCount() ?> of <?= $dataProvider->getTotalCount() ?></div>
 </div>

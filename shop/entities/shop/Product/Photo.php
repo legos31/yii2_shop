@@ -55,6 +55,9 @@ class Photo extends ActiveRecord
                     'cart_list' => ['width' => 150, 'height' => 150],
                     'cart_widget_list' => ['width' => 57, 'height' => 57],
                     'catalog_list' => ['width' => 228, 'height' => 228],
+                    'catalog_product_main' => ['width' => 750, 'height' => 1000],
+                    'catalog_product_additional' => ['width' => 66, 'height' => 66],
+                    'catalog_origin' => ['width' => 1024, 'height' => 768],
                 ],
             ],
         ];

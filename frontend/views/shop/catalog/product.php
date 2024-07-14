@@ -49,22 +49,26 @@ MagnificPopupAsset::register($this);
                 <?php endif; ?>
             <?php endforeach; ?>
         </ul>
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab-description" data-toggle="tab">Description</a></li>
-            <li><a href="#tab-specification" data-toggle="tab">Specification</a></li>
-            <li><a href="#tab-review" data-toggle="tab">Reviews (0)</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="tab-description"><p>
-                <?= Yii::$app->formatter->asHtml($product->description, [
-                    'Attr.AllowedRel' => array('nofollow'),
-                    'HTML.SafeObject' => true,
-                    'Output.FlashCompat' => true,
-                    'HTML.SafeIframe' => true,
-                    'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
-                ]) ?>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Description</button>
+                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Specification</button>
+                <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Reviews</button>
             </div>
-            <div class="tab-pane" id="tab-specification">
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="tab-pane active" id="tab-description"><p>
+                        <?= Yii::$app->formatter->asHtml($product->description, [
+                            'Attr.AllowedRel' => array('nofollow'),
+                            'HTML.SafeObject' => true,
+                            'Output.FlashCompat' => true,
+                            'HTML.SafeIframe' => true,
+                            'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
+                        ]) ?>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <table class="table table-bordered">
                     <tbody>
                     <?php foreach ($product->values as $value): ?>
@@ -78,7 +82,7 @@ MagnificPopupAsset::register($this);
                     </tbody>
                 </table>
             </div>
-            <div class="tab-pane" id="tab-review">
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 <div id="review"></div>
                 <h2>Write a review</h2>
 
@@ -104,9 +108,9 @@ MagnificPopupAsset::register($this);
                     <?php ActiveForm::end() ?>
 
                 <?php endif; ?>
-
             </div>
         </div>
+
     </div>
     <div class="col-sm-4">
         <p class="btn-group">

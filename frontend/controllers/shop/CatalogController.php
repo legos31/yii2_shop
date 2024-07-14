@@ -48,21 +48,6 @@ class CatalogController extends Controller
         $dataProvider = $this->products->getAll();
         $category = $this->categories->getRoot();
 
-//        $provider = new ActiveDataProvider([
-//            'query' => Product::find(),
-//            'sort' => [
-//                'defaultOrder' => ['id' => SORT_DESC],
-//                'attributes' => [
-//                    'id', 'name',
-//                    'price' => [
-//                        'asc' => ['price_new' => SORT_ASC],
-//                        'desc' => ['price_new' => SORT_DESC]
-//                    ],
-//                    'rating'
-//                ]
-//            ]
-//        ]);
-
         return $this->render('index', [
             'category' => $category,
             'dataProvider' => $dataProvider,
@@ -132,6 +117,7 @@ class CatalogController extends Controller
     public function actionSearch()
     {
         $form = new SearchForm();
+
         $form->load(\Yii::$app->request->queryParams);
         $form->validate();
 

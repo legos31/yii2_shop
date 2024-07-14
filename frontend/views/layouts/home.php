@@ -26,15 +26,15 @@ use frontend\widgets\Shop\FeaturedProductsWidget;
         </div>
         <h3>Featured</h3>
 
-<!--        --><?php //= FeaturedProductsWidget::widget([
-//            'limit' => 4,
-//        ]) ?>
+        <?= FeaturedProductsWidget::widget([
+            'limit' => 4,
+        ]) ?>
 
         <h3>Last Posts</h3>
 
-<!--        --><?php //= LastPostsWidget::widget([
-//            'limit' => 4,
-//        ]) ?>
+        <?= LastPostsWidget::widget([
+            'limit' => 4,
+        ]) ?>
 
         <div id="carousel0" class="owl-carousel">
             <div class="item text-center">

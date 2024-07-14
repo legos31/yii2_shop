@@ -4,7 +4,7 @@
 /* @var $dataProvider yii\data\DataProviderInterface */
 /* @var $searchForm \shop\forms\Shop\Search\SearchForm */
 
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 use yii\helpers\Html;
 
 $this->title = 'Search';
@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h1><?= Html::encode($this->title) ?></h1>
 
-<div class="panel panel-default">
+<div class="panel panel-default mb-8">
     <div class="panel-body">
         <?php $form = ActiveForm::begin(['action' => [''], 'method' => 'get']) ?>
 

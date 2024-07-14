@@ -9,6 +9,7 @@ use shop\entities\shop\Brand;
 use shop\entities\shop\Category;
 use shop\entities\Shop\queries\ProductQuery;
 use shop\entities\shop\Tag;
+use shop\entities\WishlistItem;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;

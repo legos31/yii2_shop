@@ -8,7 +8,8 @@ use yii\helpers\Url;
 ?>
 
 <div id="cart" class="btn-group btn-block">
-    <button type="button" data-toggle="dropdown" data-loading-text="Loading..." class="btn btn-inverse btn-block btn-lg dropdown-toggle" aria-expanded="false">
+
+    <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fa fa-shopping-cart"></i>
         <span id="cart-total"><?= $cart->getAmount() ?> item(s) - <?= PriceHelper::format($cart->getCost()->getTotal()) ?></span>
     </button>

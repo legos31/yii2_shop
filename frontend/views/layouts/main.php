@@ -121,7 +121,7 @@ OwlCarouselAsset::register($this);
                 <?= Html::endForm() ?>
             </div>
             <div class="col-sm-3">
-<!--                --><?php //= CartWidget::widget() ?>
+                <?= CartWidget::widget() ?>
             </div>
         </div>
     </div>

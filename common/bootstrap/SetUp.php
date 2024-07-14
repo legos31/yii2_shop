@@ -2,6 +2,10 @@
 
 namespace common\bootstrap;
 
+use shop\cart\Cart;
+use shop\cart\cost\calculator\DynamicCost;
+use shop\cart\cost\calculator\SimpleCost;
+use shop\cart\storage\HybridStorage;
 use shop\services\auth\PasswordResetService;
 use shop\services\contact\ContactService;
 use Yii;
@@ -9,6 +13,7 @@ use yii\base\BootstrapInterface;
 use yii\mail\MailerInterface;
 use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\ClientBuilder;
+use yii\caching\Cache;
 
 class SetUp implements BootstrapInterface
 {
@@ -29,7 +34,20 @@ class SetUp implements BootstrapInterface
         ]);
 
         Yii::$container->setSingleton(Client::class, function () {
-            return ClientBuilder::create()->build();
+            return ClientBuilder::create()->setHosts([
+                'http://localhost:9200'
+            ])->build();
+        });
+
+        Yii::$container->setSingleton(Cache::class, function () use ($app) {
+            return $app->cache;
+        });
+
+        Yii::$container->setSingleton(Cart::class, function () use ($app) {
+            return new Cart(
+                new HybridStorage($app->get('user'), 'cart', 3600 * 24, $app->db),
+                new DynamicCost(new SimpleCost())
+            );
         });
     }
 }
