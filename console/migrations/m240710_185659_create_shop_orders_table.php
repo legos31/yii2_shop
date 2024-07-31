@@ -37,7 +37,7 @@ class m240710_185659_create_shop_orders_table extends Migration
         $this->createIndex('{{%idx-shop_orders-delivery_method_id}}', '{{%shop_orders}}', 'delivery_method_id');
 
         $this->addForeignKey('{{%fk-shop_orders-user_id}}', '{{%shop_orders}}', 'user_id', '{{%users}}', 'id', 'CASCADE');
-        $this->addForeignKey('{{%fk-shop_orders-delivery_method_id}}', '{{%shop_orders}}', 'user_id', '{{%shop_delivery_methods}}', 'id', 'CASCADE');
+        $this->addForeignKey('{{%fk-shop_orders-delivery_method_id}}', '{{%shop_orders}}', 'delivery_method_id', '{{%shop_delivery_methods}}', 'id', 'CASCADE');
     }
 
     /**

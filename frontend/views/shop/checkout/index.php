@@ -6,7 +6,7 @@
 
 use shop\helpers\PriceHelper;
 use shop\helpers\WeightHelper;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 

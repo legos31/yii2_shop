@@ -54,6 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => function (Product $model) {
                             return PriceHelper::format($model->price_new);
                         },
+
                     ],
                     'quantity',
                     [

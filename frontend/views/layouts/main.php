@@ -86,7 +86,7 @@ OwlCarouselAsset::register($this);
                         <?php endif; ?>
                         <li><a class="dropdown-item" id="wishlist-total" href="<?= Url::to(['/cabinet/wishlist/index']) ?>">Wish list</a></li>
                         <li><a class="dropdown-item" id="wishlist-total" href="<?= Url::to(['/shop/cart/index']) ?>">Shopping Cart</a></li>
-                        <li><a class="dropdown-item" id="wishlist-total" href="/index.php?route=checkout/checkout">Checkout</a></li>
+                        <li><a class="dropdown-item" id="wishlist-total" href="<?= Url::to('/shop/checkout/index') ?>">Checkout</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
