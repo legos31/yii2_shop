@@ -30,7 +30,8 @@
         "elasticsearch/elasticsearch": "^8.14",
         "bower-asset/magnific-popup": "^1.1",
         "yiisoft/yii2-sphinx": "^2.0",
-        "opensearch-project/opensearch-php": "^2.3"
+        "opensearch-project/opensearch-php": "^2.3",
+        "mihaildev/yii2-elfinder": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
