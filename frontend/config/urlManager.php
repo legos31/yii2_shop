@@ -24,6 +24,12 @@ return [
         'blog/<id:\d+>/comment' => 'blog/post/comment',
         'blog/<slug:[\w\-]+>' => 'blog/post/category',
 
+        ['pattern' => 'yandex-market', 'route' => 'market/index', 'suffix' => '.xml'],
+
+        ['pattern' => 'sitemap', 'route' => 'sitemap/index', 'suffix' => '.xml'],
+        ['pattern' => 'sitemap-<target:[a-z-]+>-<start:\d+>', 'route' => 'sitemap/<target>', 'suffix' => '.xml'],
+        ['pattern' => 'sitemap-<target:[a-z-]+>', 'route' => 'sitemap/<target>', 'suffix' => '.xml'],
+
         'catalog' => 'shop/catalog/index',
         ['class' => 'frontend\urls\CategoryUrlRule'],
         'catalog/<id:\d+>' => 'shop/catalog/product',

@@ -8,14 +8,13 @@ return [
     'components' => [
         'cache' => [
             'class' => \yii\caching\FileCache::class,
-//            'class' => \yii\caching\MemCache::class,
-//            'useMemcached' => true,
-//            'servers' => [
-//                [
-//                    'host' => 'memcached',
-//                    'port' => 11211,
-//                ],
-//            ],
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'itemTable' => '{{%auth_item}}',
+            'itemChildTable' => '{{%auth_item_child}}',
+            'assignmentTable' => '{{%auth_assignments}}',
+            'ruleTable' => '{{%auth_rules}}',
         ],
     ],
 ];

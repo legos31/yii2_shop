@@ -72,4 +72,17 @@ class UserRepository
         return $this->getBy(['id' => $id]);
     }
 
+    public function getByEmailConfirmToken($token): User
+    {
+        return $this->getBy(['email_confirm_token' => $token]);
+    }
+    public function remove(User $user): void
+    {
+        if (!$user->delete()) {
+            throw new \RuntimeException('Removing error.');
+        }
+        //$this->dispatcher->dispatchAll($user->releaseEvents());
+    }
+
+
 }

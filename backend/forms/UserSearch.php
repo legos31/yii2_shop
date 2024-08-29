@@ -5,6 +5,7 @@ namespace backend\forms;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use shop\entities\User;
+use yii\helpers\ArrayHelper;
 
 /**
  * userSearch represents the model behind the search form of `shop\entities\user`.
@@ -17,6 +18,7 @@ class UserSearch extends Model
     public $email;
     public $created_at;
     public $date_from;
+    public $role;
 
     /**
      * {@inheritdoc}
@@ -25,7 +27,7 @@ class UserSearch extends Model
     {
         return [
             [['id', 'status', 'created_at'], 'integer'],
-            [['username', 'email', 'created_at'], 'safe'],
+            [['username', 'email', 'created_at', 'role'], 'safe'],
             [['date_from'], 'date', 'format' => 'php:Y-m-d'],
         ];
     }
@@ -39,7 +41,7 @@ class UserSearch extends Model
      */
     public function search($params)
     {
-        $query = User::find();
+        $query = User::find()->alias('u');
 
         // add conditions that should always apply here
 
@@ -55,17 +57,27 @@ class UserSearch extends Model
             return $dataProvider;
         }
 
+        if (!empty($this->role)) {
+            $query->innerJoin('{{%auth_assignments}} a', 'a.user_id = u.id');
+            $query->andWhere(['a.item_name' => $this->role]);
+        }
+
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'status' => $this->status,
+            'u.id' => $this->id,
+            'u.status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['>=', 'created_at', $this->date_from ? strtotime($this->date_from . ' 00:00:00') : null])
+        $query->andFilterWhere(['like', 'u.username', $this->username])
+            ->andFilterWhere(['like', 'u.email', $this->email])
+            ->andFilterWhere(['>=', 'u.created_at', $this->date_from ? strtotime($this->date_from . ' 00:00:00') : null])
             ;
 
         return $dataProvider;
+    }
+
+    public function rolesList(): array
+    {
+        return ArrayHelper::map(\Yii::$app->authManager->getRoles(), 'name', 'description');
     }
 }

@@ -31,7 +31,10 @@
         "bower-asset/magnific-popup": "^1.1",
         "yiisoft/yii2-sphinx": "^2.0",
         "opensearch-project/opensearch-php": "^2.3",
-        "mihaildev/yii2-elfinder": "*"
+        "mihaildev/yii2-elfinder": "*",
+        "filsh/yii2-oauth2-server": "*",
+        "zircote/swagger-php": "^4.10",
+        "ext-xmlwriter": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

@@ -2,7 +2,7 @@
 
 namespace shop\forms\User;
 
-use shop\entities\User\User;
+use shop\entities\User;
 use yii\base\Model;
 
 class ProfileEditForm  extends Model

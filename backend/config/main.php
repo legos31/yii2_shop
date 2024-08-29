@@ -22,7 +22,7 @@ return [
         'rules' => [
             [
                 'allow' => true,
-                'roles' => ['@'],
+                'roles' => ['admin'],
             ],
         ],
     ],

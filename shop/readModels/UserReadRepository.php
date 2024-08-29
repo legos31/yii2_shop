@@ -2,7 +2,7 @@
 
 namespace shop\readModels;
 
-use shop\entities\User\User;
+use shop\entities\User;
 
 class UserReadRepository
 {

@@ -8,12 +8,16 @@ use shop\cart\cost\calculator\SimpleCost;
 use shop\cart\storage\HybridStorage;
 use shop\services\auth\PasswordResetService;
 use shop\services\contact\ContactService;
+use shop\services\sms\LoggedSender;
+use shop\services\sms\SmsRu;
+use shop\services\sms\SmsSender;
 use Yii;
 use yii\base\BootstrapInterface;
 use yii\mail\MailerInterface;
 use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\ClientBuilder;
 use yii\caching\Cache;
+use yii\rbac\ManagerInterface;
 
 class SetUp implements BootstrapInterface
 {
@@ -47,6 +51,17 @@ class SetUp implements BootstrapInterface
             return new Cart(
                 new HybridStorage($app->get('user'), 'cart', 3600 * 24, $app->db),
                 new DynamicCost(new SimpleCost())
+            );
+        });
+
+        Yii::$container->setSingleton(ManagerInterface::class, function () use ($app) {
+            return $app->authManager;
+        });
+
+        Yii::$container->setSingleton(SmsSender::class, function () use ($app) {
+            return new LoggedSender(
+                new SmsRu($app->params['smsRuKey']),
+                \Yii::getLogger()
             );
         });
     }

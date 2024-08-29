@@ -1,5 +1,6 @@
 <?php
 
+use backend\widgets\grid\RoleColumn;
 use shop\entities\User;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -37,6 +38,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     return UserHelper::statusLabel($model->status);
                 },
                 'format' => 'raw',
+            ],
+            [
+                'attribute' => 'role',
+                'class' => RoleColumn::class,
+                'filter' => $searchModel->rolesList(),
             ],
             [
                 'attribute' => 'created_at',

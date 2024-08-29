@@ -73,5 +73,5 @@ use yii\widgets\LinkPager;
         ]) ?>
     </div>
 
-    <div class="col-sm-6 text-right">Showing <?= $dataProvider->getCount() ?> of <?= $dataProvider->getTotalCount() ?></div>
+    <div class="col-sm-6 text-right">Showing <?php // $dataProvider->getCount()?> of <?php //$dataProvider->getTotalCount() ?></div>
 </div>

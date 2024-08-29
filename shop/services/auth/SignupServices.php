@@ -2,49 +2,51 @@
 
 namespace shop\services\auth;
 
+use shop\access\Rbac;
+use shop\dispatchers\EventDispatcher;
 use shop\entities\User;
 use shop\forms\auth\SignupForm;
-use Yii;
+use shop\repositories\UserRepository;
+use shop\services\RoleManager;
+use shop\services\TransactionManager;
 
 class SignupServices
 {
-    public function signup(SignupForm $form): User
+    private $users;
+    private $roles;
+    private $transaction;
+
+    public function __construct(
+        UserRepository $users,
+        RoleManager $roles,
+        TransactionManager $transaction
+    )
     {
+        $this->users = $users;
+        $this->roles = $roles;
+        $this->transaction = $transaction;
+    }
 
-        $user = User::create($form->username, $form->email, $form->password);
+    public function signup(SignupForm $form): void
+    {
+        $user = User::requestSignup(
+            $form->username,
+            $form->email,
+            $form->password
+        );
+        $this->transaction->wrap(function () use ($user) {
+            $this->users->save($user);
+            $this->roles->assign($user->id, Rbac::ROLE_USER);
+        });
+    }
 
-        $this->save($user);
-        if (!$this->sendEmail($user, $form))
-        {
-            throw new \RuntimeException('Mail delivery error.');
+    public function confirm($token): void
+    {
+        if (empty($token)) {
+            throw new \DomainException('Empty confirm token.');
         }
-        return $user;
+        $user = $this->users->getByEmailConfirmToken($token);
+        $user->confirmSignup();
+        $this->users->save($user);
     }
-
-    /**
-     * Sends confirmation email to user
-     * @param User $user user model to with email should be send
-     * @return bool whether the email was sent
-     */
-    protected function sendEmail($user, $form)
-    {
-        return Yii::$app
-            ->mailer
-            ->compose(
-                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
-                ['user' => $user]
-            )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($form->email)
-            ->setSubject('Account registration at ' . Yii::$app->name)
-            ->send();
-    }
-
-    public function save($user)
-    {
-        if (!$user->save()) {
-            throw new \RuntimeException('Saving user error.');
-        }
-    }
-
 }

@@ -2,8 +2,8 @@
 
 namespace console\controllers;
 
-use shop\entities\User\User;
-use shop\useCases\manage\UserManageService;
+use shop\entities\User;
+use shop\services\manage\UserManageService;
 use Yii;
 use yii\console\Controller;
 use yii\console\Exception;

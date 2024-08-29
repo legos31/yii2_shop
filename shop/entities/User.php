@@ -31,6 +31,7 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
+    const STATUS_WAIT = 0;
 
 
     /**
@@ -78,6 +79,7 @@ class User extends ActiveRecord implements IdentityInterface
         $user = new static();
         $user->username = $username;
         $user->email = $email;
+        //$user->phone = $phone;
         $user->status = self::STATUS_INACTIVE;
         $user->setPassword($password);
         $user->generateAuthKey();
@@ -111,6 +113,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->username = $username;
         $this->email = $email;
+        //$this->phone = $phone;
         $this->updated_at = time();
     }
 
@@ -257,5 +260,19 @@ class User extends ActiveRecord implements IdentityInterface
     public function getWishlistItems(): ActiveQuery
     {
         return $this->hasMany(WishlistItem::class, ['user_id' => 'id']);
+    }
+
+    public static function requestSignup(string $username, string $email, string $password): self
+    {
+        $user = new User();
+        $user->username = $username;
+        $user->email = $email;
+        $user->setPassword($password);
+        $user->created_at = time();
+        $user->status = self::STATUS_WAIT;
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        //$user->recordEvent(new UserSignUpRequested($user));
+        return $user;
     }
 }
