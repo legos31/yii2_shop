@@ -77,29 +77,6 @@ services:
     ports:
       - "8080:80"    # Прокидываем порт 8080 контейнера на порт 80 хост-системы
 
-#  opensearch:
-#    image: opensearchproject/opensearch
-#    ports:
-#      - "9200:9200"
-#      - "9600:9600"
-#    environment:
-#        - discovery.type=single-node
-#        - node.name=opensearch
-#        - OPENSEARCH_INITIAL_ADMIN_PASSWORD=Qaz308001
-
-#  sphinx:
-#    build: database/sphinx
-#    container_name: sphinx
-#    volumes:
-#      - ./database/sphinx/sphinx.conf:/etc/sphinxsearch/sphinx.conf
-#      - ./database/sphinx:/var/lib/sphinxsearch/data
-#    ports:
-#      - "9312:9312"
-#    depends_on:
-#      - mysql
-#    command: indexer --config /etc/sphinxsearch/sphinx.conf --all
-
-
   elasticsearch:
     container_name: elasticsearch
     image: elasticsearch:7.17.22
@@ -111,6 +88,14 @@ services:
       - "9300:9300"
     volumes:
       - ./database/elasticsearch:/usr/share/elasticsearch/data
+
+  redis:
+    image: redis:latest  # Use the latest Redis image from Docker Hub
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/data:/data
 
   #pgsql:
   #  image: postgres:9.5

@@ -3,20 +3,23 @@
 namespace shop\entities\shop\Product;
 
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
+use shop\entities\AggregateRoot;
 use shop\entities\behaviors\MetaBehavior;
+use shop\entities\EventTrait;
 use shop\entities\Meta;
 use shop\entities\shop\Brand;
 use shop\entities\shop\Category;
 use shop\entities\Shop\queries\ProductQuery;
 use shop\entities\shop\Tag;
 use shop\entities\WishlistItem;
+use shop\events\ProductAppearedInStock;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
 
-class Product extends ActiveRecord
+class Product extends ActiveRecord implements AggregateRoot
 {
-    //use EventTrait;
+    use EventTrait;
 
     const STATUS_DRAFT = 0;
     const STATUS_ACTIVE = 1;

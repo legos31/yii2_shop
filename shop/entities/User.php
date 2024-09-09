@@ -4,6 +4,8 @@ namespace shop\entities;
 
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use shop\entities\WishlistItem;
+use shop\events\UserSignUpConfirmed;
+use shop\events\UserSignUpRequest;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
@@ -24,10 +26,12 @@ use Yii;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property string $email_confirm_token
  * @property string $password write-only password
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends ActiveRecord implements IdentityInterface, AggregateRoot
 {
+    use EventTrait;
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
@@ -272,7 +276,17 @@ class User extends ActiveRecord implements IdentityInterface
         $user->status = self::STATUS_WAIT;
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
-        //$user->recordEvent(new UserSignUpRequested($user));
+        $user->recordEvent(new UserSignUpRequest($user));
         return $user;
+    }
+
+    public function confirmSignup(): void
+    {
+//        if (!$this->isWait()) {
+//            throw new \DomainException('User is already active.');
+//        }
+        $this->status = self::STATUS_ACTIVE;
+        $this->email_confirm_token = null;
+        $this->recordEvent(new UserSignUpConfirmed($this));
     }
 }

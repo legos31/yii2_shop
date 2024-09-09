@@ -19,12 +19,13 @@ class SignupServices
     public function __construct(
         UserRepository $users,
         RoleManager $roles,
-        TransactionManager $transaction
+        TransactionManager $transaction,
     )
     {
         $this->users = $users;
         $this->roles = $roles;
         $this->transaction = $transaction;
+
     }
 
     public function signup(SignupForm $form): void

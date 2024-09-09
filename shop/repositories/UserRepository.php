@@ -2,12 +2,20 @@
 
 namespace shop\repositories;
 
+use shop\dispatchers\EventDispatcher;
 use shop\entities\User;
 use yii\web\NotFoundHttpException;
 use Yii;
 
 class UserRepository
 {
+    private $dispatcher;
+
+    public function __construct(EventDispatcher $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
     public function findByUsernameOrEmail($value): ?User
     {
         return User::find()->andWhere(['or', ['username' => $value], ['email' => $value]])->one();
@@ -18,7 +26,7 @@ class UserRepository
         if (!$user->save()) {
             throw new \RuntimeException('Saving user error.');
         }
-
+        $this->dispatcher->dispatchAll($user->releaseEvents());
         return true;
     }
 
@@ -81,7 +89,20 @@ class UserRepository
         if (!$user->delete()) {
             throw new \RuntimeException('Removing error.');
         }
-        //$this->dispatcher->dispatchAll($user->releaseEvents());
+        $this->dispatcher->dispatchAll($user->releaseEvents());
+    }
+
+    /**
+     * @param $productId
+     * @return iterable|User[]
+     */
+    public function getAllByProductInWishList($productId): iterable
+    {
+        return User::find()
+            ->alias('u')
+            ->joinWith('wishlistItems w', false, 'INNER JOIN')
+            ->andWhere(['w.product_id' => $productId])
+            ->each();
     }
 
 

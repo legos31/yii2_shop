@@ -10,7 +10,7 @@ return [
     'id' => 'shop',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log','common\bootstrap\SetUp'],
     'modules' => [],
     'aliases' => [
         '@staticRoot' => $params['staticPath'],
